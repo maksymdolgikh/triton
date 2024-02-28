@@ -101,7 +101,12 @@ class Autotuner(KernelInterface):
                              " Make sure that you don't re-define auto-tuned symbols.")
         # augment meta-parameters with tunable ones
         current = dict(meta, **config.kwargs)
-        full_nargs = {**self.nargs, **current}
+        # full_nargs = {**self.nargs, **current}
+        full_nargs = {}
+        if self.nargs:
+            full_nargs.update(self.nargs)
+        if current:
+            full_nargs.update(current)
 
         def kernel_call():
             if config.pre_hook:
